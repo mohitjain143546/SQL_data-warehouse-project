@@ -1,0 +1,101 @@
+/*
+===============================================
+Stored Procedure: Load Bronze Layer(sourse -> Bronze)
+===============================================
+Script Purpose:
+	This stored procedure loads data into the bronze schema from the external CSV files.
+	it performs the following actions:
+	- Truncates the bronze tables before laoding data.
+	- Uses the 'Bulk Insert' command to load data from csv files to vroze tables.
+
+Usage Example: 
+	Exec bronze.load_bronze;
+===============================================
+*/
+--To create the procedure in hte broze schema 
+
+Create or alter procedure bronze.load_bronze as 
+begin 
+	print '========================';
+	print 'Loading the Bronze layer';
+	print '========================';
+	print '------------------------';
+	Print 'Loading CRM Tables';
+	print '------------------------';
+
+-- load the csv file content in the tables ( from the erp and crm data sets )
+
+	Truncate table bronze.crm_cust_info;
+
+	Bulk Insert bronze.crm_cust_info
+	from 'C:\Users\Mohit_Jain_1\Desktop\SQL\SQL BY BARAA\sql-data-warehouse-project\datasets\source_crm\cust_info.csv'
+
+	with (
+		firstrow = 2,
+		fieldterminator = ',',
+		tablock
+	);
+
+	Truncate table bronze.crm_prd_info;
+
+	Bulk Insert bronze.crm_prd_info
+	from 'C:\Users\Mohit_Jain_1\Desktop\SQL\SQL BY BARAA\sql-data-warehouse-project\datasets\source_crm\prd_info.csv'
+
+	with (
+		firstrow = 2,
+		fieldterminator = ',',
+		tablock
+	);
+
+	Truncate table bronze.crm_sales_details;
+
+	Bulk Insert bronze.crm_sales_details
+	from 'C:\Users\Mohit_Jain_1\Desktop\SQL\SQL BY BARAA\sql-data-warehouse-project\datasets\source_crm\sales_details.csv'
+
+	with (
+		firstrow = 2,
+		fieldterminator = ',',
+		tablock
+	);
+
+	print '------------------------';
+	Print 'Loading ERP Tables';
+	print '------------------------';
+
+	Truncate table bronze.erp_cust_az12;
+
+	Bulk Insert bronze.erp_cust_az12
+	from 'C:\Users\Mohit_Jain_1\Desktop\SQL\SQL BY BARAA\sql-data-warehouse-project\datasets\source_erp\cust_az12.csv'
+
+	with (
+		firstrow = 2,
+		fieldterminator = ',',
+		tablock
+	);
+
+	Truncate table bronze.erp_loc_a101;
+
+	Bulk Insert bronze.erp_loc_a101
+	from 'C:\Users\Mohit_Jain_1\Desktop\SQL\SQL BY BARAA\sql-data-warehouse-project\datasets\source_erp\loc_a101.csv'
+
+	with (
+		firstrow = 2,
+		fieldterminator = ',',
+		tablock
+	);
+
+	Truncate table bronze.erp_px_cat_g1v2;
+
+	Bulk Insert bronze.erp_px_cat_g1v2
+	from 'C:\Users\Mohit_Jain_1\Desktop\SQL\SQL BY BARAA\sql-data-warehouse-project\datasets\source_erp\px_cat_g1v2.csv'
+
+	with (
+		firstrow = 2,
+		fieldterminator = ',',
+		tablock
+	);
+end
+
+-- this query to execute the procedure 
+
+ --exec bronze.load_bronze
