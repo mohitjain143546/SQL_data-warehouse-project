@@ -1,0 +1,27 @@
+/*
+Create Database and Schemas
+
+Script Purpose: 
+	This script create a new data base named 'datawarehouse'. 
+	Additionally, the script sets up three schemas within the database: 'Bronze', 'Silver', 'Gold'.
+
+*/
+
+Use master;
+Go
+
+-- Create datawarehouse database
+Create DataBase DataWareHouse;
+
+Use DataWareHouse;
+
+-- Create Schemas
+
+Create Schema bronze;
+Go
+
+Create Schema silver; 
+Go
+
+Create Schema gold;
+Go
